@@ -1,20 +1,15 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
-import Database from 'better-sqlite3';
+import { createClient } from '@supabase/supabase-js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Initialize Database
-const db = new Database('subscribers.db');
-db.exec(`
-  CREATE TABLE IF NOT EXISTS subscribers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT UNIQUE NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+// Initialize Supabase Client
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function startServer() {
   const app = express();
@@ -23,28 +18,54 @@ async function startServer() {
   app.use(express.json());
 
   // API Routes
-  app.post('/api/subscribe', (req, res) => {
+  app.post('/api/subscribe', async (req, res) => {
     const { email } = req.body;
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
+    if (!supabaseUrl || !supabaseKey) {
+      console.error('Supabase credentials missing.');
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
     try {
-      const stmt = db.prepare('INSERT INTO subscribers (email) VALUES (?)');
-      stmt.run(email);
+      const { error } = await supabase
+        .from('subscribers')
+        .insert([{ email }]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation in Postgres
+          return res.status(409).json({ error: 'Email already subscribed' });
+        }
+        throw error;
+      }
+
       res.json({ success: true, message: 'Thank you for subscribing!' });
     } catch (error: any) {
-      if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-        return res.status(409).json({ error: 'Email already subscribed' });
-      }
-      console.error('Database error:', error);
+      console.error('Supabase error:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   });
 
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });
+  });
+
+  // Export subscribers (Convenience route)
+  app.get('/api/subscribers/export', async (req, res) => {
+    try {
+      const { data, error } = await supabase
+        .from('subscribers')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch subscribers' });
+    }
   });
 
   // Vite middleware for development
