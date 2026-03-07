@@ -14,7 +14,7 @@ const content = [
   },
   {
     id: "02",
-    title: "The \"System Busy\" Myth",
+    title: "THE ILLUSION OF FAILURE",
     body: [
       "\"SYSTEM BUSY\" IS A CHOICE.",
       "THEY DIDN'T \"CRASH.\"",
@@ -81,7 +81,7 @@ const content = [
   },
   {
     id: "08",
-    title: "The CTA",
+    title: "THE ESCAPE PLAN",
     body: [
       "THE EXCHANGE FOR",
       "THE UNGOVERNABLE.",
