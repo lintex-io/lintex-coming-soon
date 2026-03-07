@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 
@@ -6,6 +6,16 @@ export default function EmailForm() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (message && (status === 'success' || status === 'error')) {
+      const timer = setTimeout(() => {
+        setMessage('');
+        setStatus('idle');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message, status]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
