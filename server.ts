@@ -39,13 +39,14 @@ async function startServer() {
         if (error.code === '23505') { // Unique constraint violation in Postgres
           return res.status(409).json({ error: 'Email already subscribed' });
         }
-        throw error;
+        console.error('Supabase insert error:', error);
+        return res.status(500).json({ error: error.message || 'Database error' });
       }
 
       res.json({ success: true, message: 'Thank you for subscribing!' });
     } catch (error: any) {
-      console.error('Supabase error:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Server error:', error);
+      res.status(500).json({ error: error.message || 'Internal server error' });
     }
   });
 

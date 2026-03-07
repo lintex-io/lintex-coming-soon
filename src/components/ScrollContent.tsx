@@ -156,7 +156,7 @@ interface SectionProps {
 
 const Section = ({ item, index, isLast }: SectionProps) => {
   return (
-    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[50vh]'}`}>
+    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[100vh] md:pb-[50vh]'} snap-start snap-always`}>
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -197,7 +197,7 @@ const Section = ({ item, index, isLast }: SectionProps) => {
 
 export default function ScrollContent() {
   return (
-    <div className="relative z-10 pt-[25vh] bg-transparent">
+    <div className="relative z-10 pt-[25vh] bg-transparent snap-y snap-mandatory">
       <div className="bg-black/90 backdrop-blur-sm">
         {content.map((item, index) => (
           <Section key={item.id} item={item} index={index} isLast={index === content.length - 1} />
