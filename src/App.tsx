@@ -26,7 +26,7 @@ function ScrollIndicator() {
 
 export default function App() {
   return (
-    <div className="relative w-full min-h-screen bg-black text-white selection:bg-white selection:text-black">
+    <div className="relative w-full h-screen overflow-y-auto snap-y snap-mandatory bg-black text-white selection:bg-white selection:text-black">
       {/* Background Effect (Fixed) */}
       <KineticTypography />
 
@@ -73,7 +73,7 @@ export default function App() {
       </motion.footer>
 
       {/* Hero Section (100vh) - Just a spacer now since header/footer are fixed */}
-      <main className="relative z-10 w-full h-screen flex flex-col justify-between pointer-events-none">
+      <main className="relative z-10 w-full h-screen flex flex-col justify-between pointer-events-none snap-start">
         {/* Empty spacer to keep the scroll flow correct if needed, or just let ScrollContent handle it */}
       </main>
 

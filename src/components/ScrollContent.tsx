@@ -156,7 +156,7 @@ interface SectionProps {
 
 const Section = ({ item, index, isLast }: SectionProps) => {
   return (
-    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[100vh] md:pb-[50vh]'} snap-start snap-always`}>
+    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[40vh] md:pb-[50vh]'}`}>
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -170,7 +170,7 @@ const Section = ({ item, index, isLast }: SectionProps) => {
           </div>
           
           <div className="flex-1">
-            <h2 className="font-display text-2xl md:text-4xl font-light text-white mb-8 uppercase tracking-tight">
+            <h2 className="font-display text-lg md:text-4xl font-light text-white mb-6 md:mb-8 uppercase tracking-tight">
               {item.title}
             </h2>
             
@@ -182,7 +182,7 @@ const Section = ({ item, index, isLast }: SectionProps) => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: "easeOut" }}
-                  className="font-display text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-[0.9] tracking-tighter uppercase"
+                  className="font-display text-3xl md:text-6xl lg:text-7xl font-bold text-white md:leading-[0.9] md:tracking-tighter uppercase"
                 >
                   {highlightPhrases(line)}
                 </motion.p>
@@ -197,8 +197,8 @@ const Section = ({ item, index, isLast }: SectionProps) => {
 
 export default function ScrollContent() {
   return (
-    <div className="relative z-10 pt-[25vh] bg-transparent snap-y snap-mandatory">
-      <div className="bg-black/90 backdrop-blur-sm">
+    <div className="relative z-10 pt-[25vh] bg-transparent">
+      <div className="">
         {content.map((item, index) => (
           <Section key={item.id} item={item} index={index} isLast={index === content.length - 1} />
         ))}
