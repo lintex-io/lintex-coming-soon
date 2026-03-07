@@ -62,7 +62,7 @@ export default function KineticTypography() {
       return texture;
     };
 
-    const texture = createTextTexture('NO BS TRADE AND BELIEVE');
+    const texture = createTextTexture('NO BS NO THEATER');
 
     // Geometry - Torus Knot from Codrops Demo 1
     const geometry = new THREE.TorusKnotGeometry(9, 3, 768, 3, 4, 3);

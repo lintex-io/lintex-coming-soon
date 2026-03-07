@@ -93,7 +93,7 @@ const content = [
 ];
 
 const highlightPhrases = (text: string) => {
-  const glitchPhrases = ['"SYSTEM BUSY"', "SYSTEM BUSY", "CRASHED", "CRASH"];
+  const glitchPhrases = ['"SYSTEM BUSY"', "SYSTEM BUSY", "CRASHED", "CRASH", "GLITCH"];
   const brandPhrases = ["NEVER AGAIN.", "THEY PULLED THE PLUG.", "OVER YOUR LIMIT ORDERS.", "RETAIL IS THE MISSION.", "THE EXCHANGE FOR", "THE UNGOVERNABLE."];
   
   let parts: (string | React.JSX.Element)[] = [text];
