@@ -70,7 +70,7 @@ export default function EmailForm() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className={`absolute top-full left-0 mt-2 text-xs font-mono tracking-widest uppercase ${
+              className={`absolute left-0 right-0 text-center bottom-full mb-4 md:bottom-auto md:top-full md:left-0 md:right-auto md:text-left md:mt-2 md:mb-0 text-xs font-mono tracking-widest uppercase ${
                 status === 'success' ? 'text-emerald-400' : 'text-red-400'
               }`}
             >
