@@ -57,7 +57,7 @@ export default function App() {
               GET ON THE LIST BEFORE THE NEXT CRASH.
             </p>
             <EmailForm />
-            <p className="md:hidden text-[8px] font-mono text-white/40 mt-4 uppercase tracking-[0.2em] whitespace-nowrap">
+            <p className="md:hidden text-[8px] font-mono text-white/40 mt-4 uppercase tracking-[0.2em]">
               GET ON THE LIST BEFORE THE NEXT CRASH.
             </p>
           </div>
