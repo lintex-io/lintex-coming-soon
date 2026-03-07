@@ -1,6 +1,6 @@
 export default function Logo() {
   return (
-    <div className="w-24 md:w-32">
+    <div className="w-32 md:w-32">
       <svg
         viewBox="0 0 686 149"
         version="1.1"

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const content = [
@@ -96,11 +96,11 @@ const highlightPhrases = (text: string) => {
   const glitchPhrases = ['"SYSTEM BUSY"', "SYSTEM BUSY", "CRASHED", "CRASH"];
   const brandPhrases = ["NEVER AGAIN.", "THEY PULLED THE PLUG.", "OVER YOUR LIMIT ORDERS.", "RETAIL IS THE MISSION.", "THE EXCHANGE FOR", "THE UNGOVERNABLE."];
   
-  let parts: (string | JSX.Element)[] = [text];
+  let parts: (string | React.JSX.Element)[] = [text];
 
   // Handle Glitch Phrases
   glitchPhrases.forEach(phrase => {
-    const newParts: (string | JSX.Element)[] = [];
+    const newParts: (string | React.JSX.Element)[] = [];
     parts.forEach(part => {
       if (typeof part === 'string') {
         const split = part.split(phrase);
@@ -123,7 +123,7 @@ const highlightPhrases = (text: string) => {
 
   // Handle Brand Phrases
   brandPhrases.forEach(phrase => {
-    const newParts: (string | JSX.Element)[] = [];
+    const newParts: (string | React.JSX.Element)[] = [];
     parts.forEach(part => {
       if (typeof part === 'string') {
         const split = part.split(phrase);
@@ -147,7 +147,14 @@ const highlightPhrases = (text: string) => {
   return parts;
 };
 
-const Section = ({ item, index, isLast }: { item: typeof content[0], index: number, isLast: boolean }) => {
+interface SectionProps {
+  item: typeof content[0];
+  index: number;
+  isLast: boolean;
+  key?: string | number;
+}
+
+const Section = ({ item, index, isLast }: SectionProps) => {
   return (
     <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[50vh]'}`}>
       <div className="max-w-7xl mx-auto w-full">

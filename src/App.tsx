@@ -35,7 +35,7 @@ export default function App() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-start pointer-events-auto px-6 md:px-12 py-12 bg-gradient-to-b from-black via-black/80 to-transparent"
+        className="fixed top-0 left-0 right-0 z-50 flex justify-start pointer-events-auto px-6 md:px-12 py-6 md:py-12 bg-gradient-to-b from-black via-black/80 to-transparent"
       >
         <Logo />
       </motion.header>
@@ -45,23 +45,26 @@ export default function App() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        className="fixed bottom-0 left-0 right-0 z-50 w-full flex flex-col gap-8 pointer-events-auto px-6 md:px-12 pb-12 bg-gradient-to-t from-black via-black/80 to-transparent"
+        className="fixed bottom-0 left-0 right-0 z-50 w-full flex flex-col gap-6 md:gap-8 pointer-events-auto px-6 md:px-12 pb-6 md:pb-12 bg-gradient-to-t from-black via-black/80 to-transparent"
       >
         <div className="w-full flex flex-col md:flex-row justify-between items-end">
           {/* Scroll Indicator - aligned with form */}
           <ScrollIndicator />
 
           <div className="w-full max-w-md text-center md:text-right">
-            <p className="text-sm font-mono text-white/60 mb-8 uppercase tracking-widest leading-relaxed">
+            <p className="hidden md:block text-sm font-mono text-white/60 mb-8 uppercase tracking-widest leading-relaxed">
               LINTEX IS COMING.<br />
               GET ON THE LIST BEFORE THE NEXT CRASH.
             </p>
             <EmailForm />
+            <p className="md:hidden text-[8px] font-mono text-white/40 mt-4 uppercase tracking-[0.2em] whitespace-nowrap">
+              GET ON THE LIST BEFORE THE NEXT CRASH.
+            </p>
           </div>
         </div>
         
         <div className="w-full flex justify-between items-end border-t border-white/10 pt-6">
-           <span className="text-[10px] font-mono text-white/30 uppercase">© 2026 Lintex. ALL RIGHTS RESERVED.</span>
+           <span className="text-[10px] font-mono text-white/30 uppercase">© 2026 Lintex.<span className="hidden md:inline"> ALL RIGHTS RESERVED.</span></span>
            <div className="flex gap-4">
               <a href="#" className="text-[10px] font-mono text-white/50 hover:text-white uppercase transition-colors">Twitter</a>
               <a href="https://t.me/Lintex_io" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-white/50 hover:text-white uppercase transition-colors">Telegram</a>
