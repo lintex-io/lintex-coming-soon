@@ -174,17 +174,20 @@ const Section = ({ item, index, isLast }: SectionProps) => {
                 {item.title}
               </h2>
               
-              {/* Mobile: Single joined paragraph for natural flow */}
-              <div className="md:hidden">
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tighter uppercase break-words whitespace-normal"
-                >
-                  {highlightPhrases(item.body.join(' '))}
-                </motion.p>
+              {/* Mobile: Sequential animation with natural flow */}
+              <div className="md:hidden flex flex-wrap w-full">
+                {item.body.map((line, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: "easeOut" }}
+                    className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tighter uppercase mr-[0.3em] inline-block break-words whitespace-normal"
+                  >
+                    {highlightPhrases(line)}
+                  </motion.span>
+                ))}
               </div>
 
               {/* Desktop: Line-by-line formatting */}
