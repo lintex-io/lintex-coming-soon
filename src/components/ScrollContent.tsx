@@ -174,7 +174,7 @@ const Section = ({ item, index, isLast }: SectionProps) => {
               {item.title}
             </h2>
             
-            <div className="space-y-2">
+            <div className="md:space-y-2">
               {item.body.map((line, i) => (
                 <motion.p
                   key={i}
@@ -182,7 +182,7 @@ const Section = ({ item, index, isLast }: SectionProps) => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: "easeOut" }}
-                  className="font-display text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-tight md:leading-[0.9] tracking-normal md:tracking-tighter uppercase"
+                  className="font-display text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-tight md:leading-[0.9] tracking-normal md:tracking-tighter uppercase inline md:block mr-[0.25em] md:mr-0"
                 >
                   {highlightPhrases(line)}
                 </motion.p>
