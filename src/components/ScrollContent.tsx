@@ -156,7 +156,7 @@ interface SectionProps {
 
 const Section = ({ item, index, isLast }: SectionProps) => {
   return (
-    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-16 md:pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[30vh] md:pb-[20vh]'}`}>
+    <div className={`${isLast ? 'h-screen' : 'min-h-screen'} flex flex-col justify-center px-6 md:px-20 ${isLast ? 'py-0' : 'pt-16 md:pt-32 pb-0'} border-b border-white/10 ${isLast ? 'border-0' : ''} ${isLast ? '' : 'pb-[30vh] md:pb-[20vh]'} overflow-x-hidden`}>
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -169,26 +169,40 @@ const Section = ({ item, index, isLast }: SectionProps) => {
             {item.id}
           </div>
           
-          <div className="flex-1">
-            <h2 className="font-display text-xl md:text-4xl font-light text-white mb-8 uppercase tracking-tight">
-              {item.title}
-            </h2>
-            
-            <div className="md:space-y-2">
-              {item.body.map((line, i) => (
+            <div className="flex-1 min-w-0">
+              <h2 className="font-display text-xl md:text-4xl font-light text-white mb-8 uppercase tracking-tight">
+                {item.title}
+              </h2>
+              
+              {/* Mobile: Single joined paragraph for natural flow */}
+              <div className="md:hidden">
                 <motion.p
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: "easeOut" }}
-                  className="font-display text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-tight md:leading-[0.9] tracking-normal md:tracking-tighter uppercase inline md:block mr-[0.25em] md:mr-0"
+                  transition={{ duration: 0.8 }}
+                  className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tighter uppercase break-words whitespace-normal"
                 >
-                  {highlightPhrases(line)}
+                  {highlightPhrases(item.body.join(' '))}
                 </motion.p>
-              ))}
+              </div>
+
+              {/* Desktop: Line-by-line formatting */}
+              <div className="hidden md:block space-y-2">
+                {item.body.map((line, i) => (
+                  <motion.p
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: "easeOut" }}
+                    className="font-display text-6xl lg:text-7xl font-bold text-white leading-[0.9] tracking-tighter uppercase"
+                  >
+                    {highlightPhrases(line)}
+                  </motion.p>
+                ))}
+              </div>
             </div>
-          </div>
         </motion.div>
       </div>
     </div>
