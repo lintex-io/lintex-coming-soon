@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState, useEffect } from 'react';
 import KineticTypography from './components/KineticTypography';
 import EmailForm from './components/EmailForm';
 import Logo from './components/Logo';
@@ -10,16 +11,56 @@ import ScrollContent from './components/ScrollContent';
 import { motion } from 'motion/react';
 
 function ScrollIndicator() {
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const clientHeight = window.innerHeight;
+      
+      // Check if we are near the bottom (within 100px to be safe)
+      if (scrollTop + clientHeight >= scrollHeight - 100) {
+        setIsAtBottom(true);
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="hidden md:flex flex-col items-center gap-2 mix-blend-difference pointer-events-none">
-      <div className="h-16 w-[1px] bg-white/50 overflow-hidden relative">
+    <div 
+      onClick={isAtBottom ? scrollToTop : undefined}
+      className={`hidden md:flex flex-col items-center gap-2 mix-blend-difference transition-all duration-500 ${isAtBottom ? 'cursor-pointer pointer-events-auto' : 'pointer-events-none'}`}
+    >
+      <div className="h-16 w-[1px] relative overflow-hidden">
+        {/* Background line */}
+        <div className={`absolute inset-0 ${isAtBottom ? 'border-l border-dashed border-white/20' : 'bg-white/20'}`} />
+        
+        {/* Animated indicator */}
         <motion.div 
-          className="absolute top-0 left-0 w-full bg-white h-1/2"
-          animate={{ top: ['-100%', '100%'] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 w-full bg-white h-1/2"
+          animate={{ 
+            top: isAtBottom ? ['100%', '-100%'] : ['-100%', '100%'] 
+          }}
+          transition={{ 
+            duration: isAtBottom ? 0.8 : 1.5, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
         />
       </div>
-      <span className="font-mono text-[10px] uppercase tracking-widest text-white/70">Scroll</span>
+      <span className="font-mono text-[10px] uppercase tracking-widest text-white/70 transition-colors duration-500">
+        {isAtBottom ? 'Go Up' : 'Scroll'}
+      </span>
     </div>
   );
 }
