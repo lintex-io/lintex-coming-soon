@@ -108,7 +108,6 @@ export default function App() {
            <span className="text-[10px] font-mono text-white/30 uppercase">© 2026 Lintex.<span className="hidden md:inline"> ALL RIGHTS RESERVED.</span></span>
            <div className="flex gap-4">
               <a href="https://x.com/lintex_io" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-white/50 hover:text-white uppercase transition-colors">FOLLOW US ON X</a>
-              <a href="https://t.me/Lintex_io" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-white/50 hover:text-white uppercase transition-colors">Telegram</a>
            </div>
         </div>
       </motion.footer>
